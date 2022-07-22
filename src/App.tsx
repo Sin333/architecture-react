@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import './App.scss';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import AuthPage from './pages/auth/authPage';
+import UserPage from './pages/user/userPage';
+import { DI } from './services/di';
 
-function App() {
+export default function App() {
+  let navigate = useNavigate();
+  useEffect(() => {
+    DI.init(navigate); //нужно передать его в DI чтобы из всех сервисов было доступен
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Routes>
+          <Route path="user" element={<UserPage />} />
+          <Route path="*" element={<AuthPage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
-
-export default App;
