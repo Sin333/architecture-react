@@ -1,6 +1,7 @@
 import axios from "axios";
 import qs from "qs";
-import LocalStorageService from "./localStorageService";
+import LocalizationProvider from "../localization/localizationProvider";
+import LocalStorageProvider from "./localStorageProvider";
 
 class BaseHttpService {
     protected async GetFile(url: string, query?: any, isAuth?: boolean) {
@@ -82,9 +83,9 @@ class BaseHttpService {
       let headers: any = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Accept-Language': LocalStorageService.getLang() || "ru",
+        'Accept-Language': LocalStorageProvider.getLang() ?? LocalizationProvider.getCurrentLanguage(),
       };
-      const tokenData = LocalStorageService.getTokenData();
+      const tokenData = LocalStorageProvider.getTokenData();
       if (isAuth && tokenData)
         headers.Authorization = `Bearer ${tokenData.refreshToken}`; //HACK we use 'refreshToken' field, because haven't 'refreshToken' request
       return axios.create({

@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import { DI } from "../../services/di";
+import NavigateService from "../../services/routing/navigateService";
 
 interface IFormInputs {
     login: string,
@@ -15,12 +16,13 @@ const schema = yup.object({
 }).required();
 
 export default function AuthPage() {
-    let navigate = useNavigate();
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm<IFormInputs>({ resolver: yupResolver(schema) });
 
     const onSubmit = (data: IFormInputs) => {
         console.log(data);
         DI.navigateService.toUserPage();
+        // new NavigateService(navigate).toUserPage();
     }
 
     return (

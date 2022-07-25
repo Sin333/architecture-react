@@ -6,7 +6,7 @@ class UserApiService extends BaseHttpService {
 
         if (result && result.tokenResult) {
             DI.localStorageService.saveTokenData(result.tokenResult);
-            this.runRefreshTokenTimer();
+            await  this.runRefreshTokenTimer();
         }
 
         return result;

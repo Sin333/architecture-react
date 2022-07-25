@@ -31,7 +31,7 @@ const setLang = (lang: string) => {
   eventChangeLang.emit(lang);
 }
 
-const LocalStorageService = {
+const LocalStorageProvider = {
   getUserId: (): string => getUserId(),
   isAuth: (): boolean => checkIsAuth(),
   getTokenData: (): any | null => getTokenData(),
@@ -50,4 +50,4 @@ const LocalStorageService = {
   eventChangeLang: eventChangeLang
 };
 
-export default LocalStorageService;
+export default LocalStorageProvider;
